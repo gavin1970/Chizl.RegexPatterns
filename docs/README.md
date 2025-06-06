@@ -1,4 +1,4 @@
-﻿# `Chizl.RegexPatterns` ![`logo`](https://github.com/gavin1970/Chizl.RegexPatterns/blob/master/Chizl.RegexPatterns/docs/Chizl.RegexPatterns.png)
+﻿# `Chizl.RegexPatterns` ![`logo`](https://github.com/gavin1970/Chizl.RegexPatterns/blob/master/docs/ChizlRegexPatterns.png)
 <hr/>
 
 ## Project Information
