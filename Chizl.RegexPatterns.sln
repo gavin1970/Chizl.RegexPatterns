@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.36105.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chizl.RegexPatterns", "Chizl.RegexPatterns.csproj", "{AF37A33C-285D-4C28-95B4-B8F02BA281FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net8Demo", "Net8Demo\Net8Demo.csproj", "{FB5374E2-CF3D-4C30-9DFA-A29C5A3E87B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF37A33C-285D-4C28-95B4-B8F02BA281FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF37A33C-285D-4C28-95B4-B8F02BA281FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF37A33C-285D-4C28-95B4-B8F02BA281FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF37A33C-285D-4C28-95B4-B8F02BA281FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB5374E2-CF3D-4C30-9DFA-A29C5A3E87B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB5374E2-CF3D-4C30-9DFA-A29C5A3E87B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB5374E2-CF3D-4C30-9DFA-A29C5A3E87B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB5374E2-CF3D-4C30-9DFA-A29C5A3E87B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51692402-40B3-4008-934F-0FBAF2BEFAAD}
+	EndGlobalSection
+EndGlobal

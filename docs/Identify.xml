@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<extradoc>
+		<class name="IPA">
+				<summary>
+						Hex class handling color hex for R, G, and B.  Alpha or transparency is not included or used.
+				</summary>
+				<returns></returns>
+				<methods>
+						<method name="IsMatch">
+								<summary>
+										IsMatch(required string ipa):<br/>
+										--- IP Address Validation Rationale ---<br/>
+										After extensive research and testing, it was determined that a single regular expression (Regex)<br/>
+										is inherently insufficient and unreliable for robust IPv6 address validation.<br/>
+										<br/>
+										Key reasons for this decision include:<br/>
+										1.  **Complexity of IPv6 Rules:** IPv6 addresses have intricate rules for format,<br/>
+										especially regarding zero compression (the '::' notation), where it can appear only once<br/>
+										and can represent varying numbers of zero segments.<br/>
+										2.  **Ambiguity and Edge Cases:** Even highly complex IPv6 regex patterns, like the<br/>
+										one demonstrated during testing, often rely on numerous OR conditions. This can<br/>
+										unintentionally lead to false positives, allowing malformed addresses (e.g.,<br/>
+										containing non-hexadecimal characters or incorrect segment counts) to be<br/>
+										mistakenly validated as true, particularly towards the end of the string.<br/>
+										<br/>
+										Therefore, validation is performed using the `IPAddress.TryParse()` API from the<br/>
+										.NET framework. This method is specifically designed for IP address parsing and<br/>
+										adheres to all relevant RFC standards, providing accurate and reliable validation<br/>
+										across all valid IPv4 and IPv6 scenarios, and correctly identifying invalid ones.<br/>
+										<br/>
+										While a closest-possible IPv6 Regex pattern was identified, its limitations<br/>
+										make it unsuitable for production-grade validation.<br/>
+										Regex pattern with zoneID (for reference, but NOT used for validation due to issues):<br/>
+										@"^((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?$"<br/>
+								</summary>
+								<returns>
+										True: is valid IPv4 or IPv6<br/>
+										False: is invalid IPv4 or IPv6<br/>
+								</returns>
+						</method>
+						<method name="IsIP">
+								<summary>
+										Determines if a string is a valid IPv4 or IPv6 address.
+								</summary>
+								<returns>
+										4 if it's a valid IPv4 address.<br/>
+										6 if it's a valid IPv6 address.<br/>
+										0 if it's not a valid IP address (neither IPv4 nor IPv6).<br/>
+								</returns>
+						</method>
+				</methods>
+				<properties>
+						<property name="EmailStandards">
+								<summary>
+										1. Local Part (before the @)<br/>
+										<br/>
+										Alpha as first letter: While many services enforce this, the RFCs do not require the local part to start with an alphabet character. It can technically start with an alphanumeric character or even some special characters if quoted. However, for most common use cases, starting with an alpha or numeric character is a good practical rule.<br/>
+										Allowed characters after the first letter:<br/>
+										Alphanumeric (a-z, A-Z, 0-9)<br/>
+										. (period/dot): Cannot be the first or last character, and cannot appear consecutively (e.g., a..b@domain.com is usually invalid).<br/>
+										+ (plus sign): Often used for email sub-addressing (e.g., yourname+tag@example.com).<br/>
+										_ (underscore)<br/>
+										- (hyphen/dash)<br/>
+										Many other special characters are technically allowed if the local part is enclosed in double quotes (e.g., "john smith"@example.com), but this is rarely encountered and often discouraged by email providers. For a practical regex, it's often best to stick to the unquoted rules.<br/>
+										Max size before the @ (Local Part):<br/>
+										According to RFC 5321, the maximum length for the "local part" is 64 characters.<br/>
+										2. Domain Part (after the @)<br/>
+										<br/>
+										Allowed characters in the domain name (before the final . for the TLD):<br/>
+										Alphanumeric (a-z, A-Z, 0-9)<br/>
+										- (hyphen/dash): Cannot be the first or last character of a domain label (the parts separated by dots).<br/>
+										No +, _ allowed. These are not valid in standard domain names.<br/>
+										Can there be +, _, or - after the @?<br/>
+										- (hyphen) is allowed in the domain name, but not at the beginning or end of a "label" (the parts between dots).<br/>
+										+ and _ are not allowed in standard domain names.<br/>
+										How long can the domain name be (before the final . for the TLD)?<br/>
+										Each "label" (the segments separated by dots, like "example" in example.com or "sub" in sub.example.com) can be a maximum of 63 characters (octets).<br/>
+										The total length of the entire domain name (e.g., sub.example.com), including all labels and dots, is a maximum of 253 characters (octets). While some RFCs mention 255, 253 is the practical limit to allow for email address constraints.<br/>
+										3. Top-Level Domain (TLD) / Extension<br/>
+										<br/>
+										What are the longest extensions for a domain like .com, .bz, .info, etc.?<br/>
+										While many common TLDs are short (.com, .org, .net, country codes like .us, .uk), the introduction of new gTLDs (generic Top-Level Domains) has led to much longer extensions.<br/>
+										The maximum length of a TLD is generally tied to the 63-character limit for any domain label.<br/>
+										Some examples of long gTLDs include:<br/>
+										.northwesternmutual (18 characters)<br/>
+										.international (13 characters)<br/>
+										There are many other long gTLDs approved by ICANN, and new ones can be introduced.<br/>
+										Summary for your Regex Building:<br/>
+										For the Local Part ([a-zA-Z0-9._%+-]+):<br/>
+										<br/>
+										First letter: You might want to enforce [a-zA-Z] if you want to avoid 123@ or _user@. However, RFCs are more lenient.<br/>
+										Subsequent characters: [a-zA-Z0-9._%+-] is a good character set for practical validation.<br/>
+										Dot rules: To enforce no leading/trailing/consecutive dots, you'd typically use something like [a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*. If you allow +, _, -, you'd include those in the character classes.<br/>
+										Max length: Regex itself doesn't inherently enforce a max length, but you can add quantifiers like {1,64} for segments or overall.<br/>
+										For the Domain Part (@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}):<br/>
+										<br/>
+										Allowed characters: [a-zA-Z0-9-] for labels.<br/>
+										Hyphen rules: Ensure hyphens are not at the start or end of a label.<br/>
+										Max length: The domain part (e.g., example.com) should be broken into labels for the 63-character limit per label and 253 overall.<br/>
+										TLD minimum length: Usually 2 characters (e.g., .us, .uk).<br/>
+										A Simplified (but not fully RFC-compliant) Practical Regex Example:<br/>
+										<br/>
+										Code snippet<br/>
+										<br/>
+										^[a-zA-Z0-9]+([._%+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z]{2,63}$<br/>
+										Breaking down this example (and its limitations):<br/>
+										<br/>
+										^: Start of the string.<br/>
+										[a-zA-Z0-9]+: The local part must start with at least one alphanumeric character. (This is a common practical restriction, but not strictly RFC-compliant for all cases).<br/>
+										([._%+-][a-zA-Z0-9]+)*: Allows for segments separated by . _ % + -, where each segment must start with one of these special characters followed by one or more alphanumeric characters. This prevents leading/trailing/consecutive special characters.<br/>
+										@: The literal at symbol.<br/>
+										[a-zA-Z0-9-]+: The first part of the domain name (e.g., "example" in "example.com") can have alphanumeric characters and hyphens. At least one character.<br/>
+										(\\.[a-zA-Z0-9-]+)*: Allows for subdomains (e.g., "sub." in "https://www.google.com/url?sa=E&amp;source=gmail&amp;q=sub.example.com"). Each subdomain part must start with a . followed by alphanumeric characters and hyphens. This also prevents consecutive dots.<br/>
+										\\.: A literal dot before the TLD.<br/>
+										[a-zA-Z]{2,63}: The TLD must consist of 2 to 63 letters. This allows for both short ccTLDs and longer gTLDs.<br/>
+										$: End of the string.<br/>
+										Important Considerations for Email Validation:<br/>
+										<br/>
+										RFC Compliance vs. Practicality: A regex that strictly adheres to all RFC rules for email addresses is notoriously complex and often causes false negatives (rejecting valid emails). Most developers opt for a more pragmatic regex that covers 99% of valid emails and is easier to maintain.<br/>
+										Internationalized Domain Names (IDNs): If you need to support IDNs (e.g., user@méxico.com), your regex needs to be more complex to handle Unicode characters, often requiring specific Unicode properties or libraries that support them. The example above does not support IDNs.<br/>
+										Actual Deliverability: Regex only validates the format. It cannot tell you if the email address actually exists or is active. For that, you need to perform more advanced checks like DNS lookups (MX records) or send a verification email.<br/>
+										For most web forms and basic validation, the simplified regex above is usually sufficient. If you need extremely strict or truly RFC-compliant validation, consider using a dedicated email validation library in your programming language, as they often handle the edge cases and complexities far better than a single regex.<br/>
+								</summary>
+								<returns></returns>
+						</property>
+						<property name="IpV6">
+								<summary>
+										Unused, but left for developers that would like to use it, but shouldn't be used in production as it's not 100%.
+								</summary>
+								<returns>
+										Invalid Regex pattern string for IPv6
+								</returns>
+						</property>
+				</properties>
+		</class>
+</extradoc>

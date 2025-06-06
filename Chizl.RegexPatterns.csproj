@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+		<PropertyGroup>
+				<TargetFramework>netstandard2.0</TargetFramework>
+				<ImplicitUsings>disable</ImplicitUsings>
+				<Nullable>disable</Nullable>
+				<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		</PropertyGroup>
+
+		<PropertyGroup>
+				<Title>Chizl.RegexPatterns</Title>
+				<Description>List of premade regex patterns with the use of Regex.Match and Regex.Replace.</Description>
+				<Authors>Chizl</Authors>
+				<PackageId>Chizl.RegexPatterns</PackageId>
+				<Company>colors.dev</Company>
+				<ApplicationIcon>docs\ChizlRegexPatterns.ico</ApplicationIcon>
+				<Copyright>© 2025 color.dev</Copyright>
+				<PackageTags>regex-patterns;netstandard2.0;netstandard2.1;net47;net48;net6.0;net8.0;net9.0;no-external-dependancies</PackageTags>
+				<FileVersion>5.05.28.054</FileVersion>
+				<Version>5.05.28.0</Version>
+				<AssemblyVersion>5.05.0.0</AssemblyVersion>
+				<NuGetAuditMode>all</NuGetAuditMode>
+				<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+				<PackageReadmeFile>README.md</PackageReadmeFile>
+				<PackageIcon>ChizlRegexPatterns.png</PackageIcon>
+		</PropertyGroup>
+
+		<ItemGroup>
+		  <Compile Remove="Net8Demo\**" />
+		  <EmbeddedResource Remove="Net8Demo\**" />
+		  <None Remove="Net8Demo\**" />
+		</ItemGroup>
+
+		<ItemGroup>
+				<None Include="docs\README.md" Pack="true" PackagePath="\" />
+				<None Include="docs\ChizlRegexPatterns.png" Pack="True" PackagePath="\" />
+				<None Include="docs\ChizlRegexPatterns.ico" Pack="true" PackagePath="\" />
+		</ItemGroup>
+</Project>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<extradoc>
+		<class name="RegexBase">
+				<summary>
+						Abstract class used to handle all Regex uses for all other public classes
+				</summary>
+				<returns></returns>
+				<methods>
+						<method name="IsMatch">
+								<summary>
+										Virtual method: IsMatch(string str):<br/>
+										Matches string using auto-generated pattern then validated by <see cref="Regex.Match"/><br/>
+										<br/>
+										<param name="str">Required (string str): string to validate</param>
+								</summary>
+								<returns>
+										True: string matches pattern.<br/>
+										False: string fails pattern match.
+								</returns>
+						</method>
+						<method name="Replace">
+								<summary>
+										Virtual method: Replace(string str, string replaceWith):<br/>
+										Replaces/Removes unwanted characters from string with the use of auto-generated ReplacePattern then used by <see cref="Regex.Replace"/><br/>
+										<br/>
+										<param name="str">Required: (string str): string to clean up based on ReleasePattern.</param>
+										<param name="replaceWith">Optional: (string replaceWith): string to use in replace of all invalid characters found. Default: empty string</param>
+								</summary>
+								<returns>
+										New string without characters that do not match ReplacePattern.
+								</returns>
+						</method>
+						<method name="EscapeChars">
+								<summary>
+										Virtual method: EscapeChars(string str):<br/>
+										Uses: <see cref="Regex.Escape"/>
+								</summary>
+								<param name="str">
+										Required: string to search and add escapes for use in Regex patterns.<br/>.
+								</param>
+								<returns>
+										New string with escapes on Regex special characters.
+								</returns>
+						</method>
+						<method name="RefreshPatterns">
+								<summary>
+										Abstract method: RefreshPatterns():<br/>
+										Will refresh the Match and Replace Patterns.
+								</summary>
+								<returns>
+										void
+								</returns>
+						</method>
+				</methods>
+				<properties>
+						<property name="MatchPattern">
+								<summary>
+										Match pattern that was created based on properties being set by user.
+								</summary>
+								<returns>
+										Match pattern string
+								</returns>
+						</property>
+						<property name="ReplacePattern">
+								<summary>
+										Replace pattern that was created based on properties being set by user.
+								</summary>
+								<returns>
+										Replace pattern string
+								</returns>
+						</property>
+				</properties>
+		</class>
+</extradoc>
