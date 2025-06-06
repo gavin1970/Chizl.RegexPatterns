@@ -33,7 +33,5 @@
 
 		<ItemGroup>
 				<None Include="docs\README.md" Pack="true" PackagePath="\" />
-				<None Include="docs\ChizlRegexPatterns.png" Pack="True" PackagePath="\" />
-				<None Include="docs\ChizlRegexPatterns.ico" Pack="true" PackagePath="\" />
 		</ItemGroup>
 </Project>
