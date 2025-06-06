@@ -1,8 +1,8 @@
 ﻿namespace Chizl.RegexPatterns.Finance
 {
     /// <summary>
-    /// List of currency codes, country name, currency name, ISO 4217 decimal points, and their text symbol(s).<br/>
-    /// According to the ISO 4217 standard some have zero minor units (meaning no "cents" or fractional parts).  
+    /// List of 134 currency codes, their country name, currency name, ISO 4217 decimal points, and their text symbol(s).<br/>
+    /// According to the ISO 4217 standard some have zero minor units (meaning no "cents" or fractional parts).
     /// These are often referred to as "zero-decimal currencies."<br/>
     /// </summary>
     public enum Currency
@@ -64,9 +64,11 @@
         BMD,
         /// <summary>
         /// BOB - Bolivia Bolíviano<br/>
-        /// Summary: ??
+        /// In terms of Unicode decimal values, the "B" is represented by 66 and the "s" by 115.<br/>
+        /// Sometimes it's also presented as (dec:98 + dec:8221) "b”,wherethe”" is sometimes 36 and "b" is 98, i.e. b$.<br/>
+        /// However, the official and most common symbol is Bs.
         /// </summary>
-        [Currency(2, BOB, "Bolivia", "Bolíviano", new int[] { 36, 98 })]
+        [Currency(2, BOB, "Bolivia", "Bolíviano", new int[] { 66, 115 })]
         BOB,
         /// <summary>
         /// BAM - Bosnia and Herzegovina Convertible Mark<br/>
@@ -168,7 +170,7 @@
         /// <summary>
         /// SVC - El Salvador Colon<br/>
         /// </summary>
-        [Currency(2, SVC, "El Salvador", "Colon", new int[] { 36 })]
+        [Currency(2, SVC, "El Salvador", "Colon", new int[] { 8353 })]
         SVC,
         /// <summary>
         /// EUR - Euro Member Countries<br/>
@@ -246,7 +248,7 @@
         /// <summary>
         /// IRR - Iran Rial<br/>
         /// </summary>
-        [Currency(2, IRR, "Iran", "Rial", new int[] { 65020 })]
+        [Currency(2, IRR, "Iran", "Rial", new int[] { 0x000FDFC })]
         IRR,
         /// <summary>
         /// IMP - Isle of Man Pound<br/>
@@ -382,7 +384,7 @@
         /// <summary>
         /// OMR - Oman Rial<br/>
         /// </summary>
-        [Currency(2, OMR, "Oman", "Rial", new int[] { 65020 })]
+        [Currency(2, OMR, "Oman", "Rial", new int[] { 0x000FDFC })]
         OMR,
         /// <summary>
         /// PKR - Pakistan Rupee<br/>
@@ -419,7 +421,7 @@
         /// <summary>
         /// QAR - Qatar Riyal<br/>
         /// </summary>
-        [Currency(2, QAR, "Qatar", "Riyal", new int[] { 65020 })]
+        [Currency(2, QAR, "Qatar", "Riyal", new int[] { 0x000FDFC })]
         QAR,
         /// <summary>
         /// RON - Romania Leu<br/>
@@ -439,7 +441,7 @@
         /// <summary>
         /// SAR - Saudi Arabia Riyal<br/>
         /// </summary>
-        [Currency(2, SAR, "Saudi Arabia", "Riyal", new int[] { 65020 })]
+        [Currency(2, SAR, "Saudi Arabia", "Riyal", new int[] { 0x000FDFC })]
         SAR,
         /// <summary>
         /// RSD - Serbia Dinar<br/>
@@ -515,7 +517,7 @@
         /// <summary>
         /// TRY - Turkey Lira<br/>
         /// </summary>
-        [Currency(2, TRY, "Turkey", "Lira", new int[] { 8378 })]
+        [Currency(2, TRY, "Turkey", "Lira", new int[] { 0x00020BA })]
         TRY,
         /// <summary>
         /// TVD - Tuvalu Dollar<br/>
@@ -525,7 +527,7 @@
         /// <summary>
         /// UAH - Ukraine Hryvnia<br/>
         /// </summary>
-        [Currency(2, UAH, "Ukraine", "Hryvnia", new int[] { 8372 })]
+        [Currency(2, UAH, "Ukraine", "Hryvnia", new int[] { 0x00020B4 })]
         UAH,
         /// <summary>
         /// GBP - United Kingdom Pound<br/>
@@ -563,7 +565,7 @@
         /// <summary>
         /// YER - Yemen Rial<br/>
         /// </summary>
-        [Currency(2, YER, "Yemen", "Rial", new int[] { 65020 })]
+        [Currency(2, YER, "Yemen", "Rial", new int[] { 0x000FDFC })]
         YER,
         /// <summary>
         /// ZWD - Zimbabwe Dollar<br/>
@@ -640,12 +642,12 @@
         /// <summary>
         /// AMD - Armenia Dram<br/>
         /// </summary>
-        [Currency(2, AMD, "Armenia", "Dram", new int[] { 10255 })]
+        [Currency(2, AMD, "Armenia", "Dram", new int[] { 0x000280F })]
         AMD,
         /// <summary>
         /// BDT - Bangladesh Taka<br/>
         /// </summary>
-        [Currency(2, BDT, "Bangladesh", "Taka", new int[] { 2547 })]
+        [Currency(2, BDT, "Bangladesh", "Taka", new int[] { 0x00009F3 })]
         BDT,
         /// <summary>
         /// ETB - Ethiopia Birr<br/>
@@ -656,7 +658,7 @@
         /// <summary>
         /// GEL - Georgia Lari<br/>
         /// </summary>
-        [Currency(2, GEL, "Georgia", "Lari", new int[] { 8382 })]
+        [Currency(2, GEL, "Georgia", "Lari", new int[] { 0x00020BE })]
         GEL,
         /// <summary>
         /// HTG - Haiti Gourde<br/>
