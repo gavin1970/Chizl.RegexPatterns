@@ -1,5 +1,5 @@
 ﻿# `Chizl.RegexPatterns - A Pattern Builder Library` 
-<img src="./blob/master/docs/ChizlRegexPatterns.png" alt="drawing" width="200"/>
+<img src="ChizlRegexPatterns.png" alt="drawing" width="200"/>
 <hr/>
 
 ## This project is still being worked on.  If you like to join, please send me a message through GitHub.
