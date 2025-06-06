@@ -1,5 +1,7 @@
-﻿# `Chizl.RegexPatterns` ![`logo`](https://github.com/gavin1970/Chizl.RegexPatterns/blob/master/docs/ChizlRegexPatterns.png)
+﻿# `Chizl.RegexPatterns - A Pattern Builder Library` ![`logo`](https://github.com/gavin1970/Chizl.RegexPatterns/blob/master/docs/ChizlRegexPatterns.png)
 <hr/>
+
+## This project is still being worked on.  If you like to join, please send me a message through GitHub.
 
 ## Project Information
 - What Is It: 
