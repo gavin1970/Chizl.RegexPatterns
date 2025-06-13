@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            IdentifyRegexDemo.Start();
             MoneyRegexDemo.Start();
             IPARegexDemo.Start();
         }

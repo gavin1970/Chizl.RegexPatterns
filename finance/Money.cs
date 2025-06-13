@@ -60,7 +60,6 @@
             { 
                 _currencySymbolStatus = value;
                 RefreshPatterns();
-                //ClearPatterns();
             }
             get { return _currencySymbolStatus; } 
         }
@@ -74,7 +73,6 @@
             { 
                 _majorUnitStatus = value;
                 RefreshPatterns();
-                //ClearPatterns();
             }
             get { return _majorUnitStatus; } 
         }
@@ -88,7 +86,6 @@
             { 
                 _minorUnitStatus = ValidateCurrency(value);
                 RefreshPatterns();
-                //ClearPatterns();
             }
             get { return _minorUnitStatus; } 
         }
@@ -210,16 +207,28 @@
 
             if (!this.MajorUnitStatus.IsDenied())
             {
+                var majorMaxMin = string.Empty;
+                if (this.MajorUnitLength.Min.Equals(this.MajorUnitLength.Max))
+                    majorMaxMin = $"{{{this.MajorUnitLength.Min}}}";
+                else
+                    majorMaxMin = $"{{{this.MajorUnitLength.Min},{this.MajorUnitLength.Max}}}";
+
                 pattern += this.MajorUnitStatus.IsOptional() ?
                     _majorUnitOptTemplate.Replace("_MAX_", this.MajorUnitLength.Max.ToString()) :
-                    _majorUnitTemplate.Insert(_majorUnitTemplate.Length, $"{{{this.MajorUnitLength.Min},{this.MajorUnitLength.Max}}}");
+                    _majorUnitTemplate.Insert(_majorUnitTemplate.Length, majorMaxMin);
             }
 
             if (!this.MinorUnitStatus.IsDenied())
             {
+                var minorMaxMin = string.Empty;
+                if (this.MinorUnitLength.Min.Equals(this.MinorUnitLength.Max))
+                    minorMaxMin = $"{{{this.MinorUnitLength.Min}}}";
+                else
+                    minorMaxMin = $"{{{this.MinorUnitLength.Min},{this.MinorUnitLength.Max}}}";
+
                 pattern += this.MinorUnitStatus.IsOptional() ? 
                     _minorUnitOptTemplate.Replace("_MAX_", this.MinorUnitLength.Max.ToString()) :
-                    _minorUnitTemplate.Insert(_minorUnitTemplate.Length, $"{{{this.MinorUnitLength.Min},{this.MinorUnitLength.Max}}}"); 
+                    _minorUnitTemplate.Insert(_minorUnitTemplate.Length, minorMaxMin); 
             }
 
             pattern += "$";

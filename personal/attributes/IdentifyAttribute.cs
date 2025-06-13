@@ -1,53 +1,22 @@
-﻿//using System;
-//using System.Linq;
+﻿using Chizl.RegexPatterns.utils;
+using System;
 
-//namespace Chizl.RegexPatterns.Personal
-//{
-//    [AttributeUsage(AttributeTargets.Enum | AttributeTargets.All)]
-//    public sealed class IdentifyAttribute : Attribute
-//    {
-//        //Allowed range
-//        private readonly MinMax _decimalMinMax = MinMax.SetRange(0, 3);
+namespace Chizl.RegexPatterns.Personal
+{
+    [AttributeUsage(AttributeTargets.Enum | AttributeTargets.All)]
+    public sealed class IdentifyAttribute : Attribute
+    {
+        internal IdentifyAttribute(Identify ident, string matchPattern, string replacePattern, string breakDown = "")
+        {
+            this.IdentifyName = ident.Name();
+            this.MatchPattern = matchPattern;
+            this.ReplacePattern = replacePattern;
+            this.PatternBreakDown = breakDown;
+        }
 
-//        internal IdentifyAttribute(Identify ident, string defaultPattern, string altPattern)
-//        {
-//            //re-eval and ensure deciaml is within overall ranges expected.
-//            decimalPoint = _decimalMinMax.InRange(decimalPoint);
-
-//            this.DecimalPoint = decimalPoint;
-//            this.HasMinorUnits = !decimalPoint.Equals(0);
-//            this.CountryName = countryName;
-//            this.CurrencyName = currencyName;
-//            this.Currency = $"{currency}";
-//            this.CurrencySymbol = string.Join("", currencySymbolDecs.Select(ch => char.ConvertFromUtf32(ch)));
-//        }
-
-//        /// <summary>
-//        /// Auto set when if DecimalPoint has a value above zero.
-//        /// </summary>
-//        public bool HasMinorUnits { get; }
-//        /// <summary>
-//        /// Maximum Decimal point for currency with MinorUnits (aka Cents).
-//        /// </summary>
-//        public int DecimalPoint { get; }
-//        /// <summary>
-//        /// Official Currency Code
-//        /// </summary>
-//        public string Currency { get; }
-//        /// <summary>
-//        /// Country or Unit Name where currency is used.<br/>
-//        /// e.g. "Bulgaria", "Colombia", "United States"
-//        /// </summary>
-//        public string CountryName { get; }
-//        /// <summary>
-//        /// Currency Name<br/>
-//        /// e.g. "Lev", "Peso", "Dollar"
-//        /// </summary>
-//        public string CurrencyName { get; }
-//        /// <summary>
-//        /// Currency Symbol<br/>
-//        /// e.g. "1083, 1074", "$"
-//        /// </summary>
-//        public string CurrencySymbol { get; }
-//    }
-//}
+        public string IdentifyName { get; }
+        public string MatchPattern { get; }
+        public string ReplacePattern { get; }
+        public string PatternBreakDown { get; }
+    }
+}
