@@ -1,7 +1,6 @@
-﻿using Chizl.RegexPatterns.Personal;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
-namespace Chizl.RegexPatterns.personal
+namespace Chizl.RegexPatterns.Personal
 {
     //public sealed class Money : RegexBase
     public sealed class Identity : RegexBase

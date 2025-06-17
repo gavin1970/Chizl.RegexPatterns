@@ -2,7 +2,7 @@
 {
     public enum Identify
     {
-        [Identify(SSN_Hyphenated, "^[0-9]{3}-[0-9]{2}-[0-9]{4}$", "[^0-9-$]", "")]
+        [Identify(SSN_Hyphenated, @"^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0000)\d{4}$", "[^0-9-$]", "")]
         SSN_Hyphenated = 0,
         [Identify(SSN_Unhyphenated, "^[0-9]{9}$", "[^0-9$]", "[0-9]\t- Only Numeric Allowed\n{9}\t- Required 9 bytes in length")]
         SSN_Unhyphenated,
@@ -10,7 +10,7 @@
         Phone_US_Full,
         [Identify(Phone_US_Mid, @"^((\([0-9]{3}\)\s)?|[0-9\-]{4})([0-9]{3}\-[0-9]{4})$", @"[^0-9\s-()$]")]
         Phone_US_Mid,
-        [Identify(Phone_US_Base, @"^[0-9\s-]{7}$", @"[^0-9\s-$]")]
+        [Identify(Phone_US_Base, @"^\d{3}-\d{4}$", @"[^0-9-$]")]
         Phone_US_Base,
         [Identify(Email, @"^[a-zA-Z0-9]+([._%+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,63}$", @"[^a-zA-Z0-9@\+_\.-$]")]
         Email,
@@ -24,11 +24,11 @@
         State_Full,
         [Identify(State_Initials, "^[A-Z]{2}$", "[^A-Z$]")]
         State_Initials,
-        [Identify(ZipCode_Hyphenated, @"^[0-9]{5}|[0-9]{5}-[0-9]{4}$", "[^0-9-$]")]
+        [Identify(ZipCode_Hyphenated, @"^\d{5}|\d{5}-\d{4}$", "[^0-9-$]")]
         ZipCode_Hyphenated,
-        [Identify(ZipCode_Unhyphenated, "^[0-9]{9}$", "[^0-9$]")]
+        [Identify(ZipCode_Unhyphenated, @"^\d{9}$", "[^0-9$]")]
         ZipCode_Unhyphenated,
-        [Identify(ZipCode_Short, "^[0-9]{5}$", "[^0-9$]")]
+        [Identify(ZipCode_Short, @"^\d{5}$", "[^0-9$]")]
         ZipCode_Short,
     }
 }

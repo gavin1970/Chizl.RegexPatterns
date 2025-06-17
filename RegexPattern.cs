@@ -1,6 +1,5 @@
 ﻿using Chizl.RegexPatterns.Finance;
 using Chizl.RegexPatterns.Network;
-using Chizl.RegexPatterns.personal;
 using Chizl.RegexPatterns.Personal;
 using System;
 

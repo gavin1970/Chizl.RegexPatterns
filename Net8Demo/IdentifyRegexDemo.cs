@@ -1,10 +1,6 @@
-﻿using Chizl.RegexPatterns;
-using Chizl.RegexPatterns.Finance;
-using Chizl.RegexPatterns.personal;
+﻿using System;
+using Chizl.RegexPatterns;
 using Chizl.RegexPatterns.Personal;
-using System;
-using System.Net;
-using System.Xml.Linq;
 
 namespace Net8Demo
 {

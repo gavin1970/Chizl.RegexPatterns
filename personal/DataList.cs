@@ -5,7 +5,7 @@
 //using Chizl.RegexPatterns.models;
 //using Chizl.RegexPatterns.Personal;
 
-//namespace Chizl.RegexPatterns.personal
+//namespace Chizl.RegexPatterns.Personal
 //{
 //    internal static class DataList
 //    {
@@ -18,7 +18,7 @@
 
 //        static DataList()
 //        {
-            
+
 //        }
 
 //        public static void GetMatchingDescriptions()
@@ -46,7 +46,7 @@
 //        private static void GetPatternDefs(Identify identify)
 //        {
 //            var match = identify.MatchPattern();
-            
+
 //            var charLocations = match.Select((character, index) => new { character, index })
 //                                        .OrderBy(x => x.index)
 //                                        .Where(x => _charDict.Keys.Contains(x.character))
@@ -57,8 +57,8 @@
 //            {
 //                var pattern = "";
 //                var definition = "";
-                
-                
+
+
 //                Add(identify, pattern, definition);
 //            }
 

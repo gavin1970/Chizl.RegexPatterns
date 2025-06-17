@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Chizl.RegexPatterns.utils;
-using Chizl.RegexPatterns.Personal;
 
-namespace Chizl.RegexPatterns.personal
+namespace Chizl.RegexPatterns.Personal
 {
     internal static class IdentifyExtensions
     {
