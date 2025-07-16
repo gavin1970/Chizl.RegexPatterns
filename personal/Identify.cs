@@ -2,11 +2,11 @@
 {
     public enum Identify
     {
-        [Identify(SSN_Hyphenated, @"^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0000)\d{4}$", "[^0-9-]", "")]
+        [Identify(SSN_Hyphenated, @"^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0000)\d{4}$", @"[^\d\-]", "")]
         SSN_Hyphenated = 0,
-        [Identify(SSN_Unhyphenated, "^[0-9]{9}$", "[^0-9]", "[0-9]\t- Only Numeric Allowed\n{9}\t- Required 9 bytes in length")]
+        [Identify(SSN_Unhyphenated, @"^\d{9}$", @"[^\d]", @"[\d]\t- Only Numeric Allowed\n{9}\t- Required 9 bytes in length")]
         SSN_Unhyphenated,
-        [Identify(Phone_US_Full, @"^((\+1\s)?((\([0-9]{3}\)\s)|[0-9\-]{4}))([0-9]{3})-([0-9]{4})$", @"[^\+\(\)0-9 \-]", "(\t- START GROUP 1\n(\\+1\\s)?\t- Optional US Country Code '+1 '\n(\t- START AREA CODE GROUP 1.1\n(\\([0-9]{3}\\)\\s)\t- Required '(' + NumericOnly 3 bytes + ')'\n|\t- OR\n[0-9\\-]{4}\t- Required Numeric Only with dash, a total of 4 bytes.\n)\t- END AREA CODE GROUP 1.1\n)\t- END GROUP 1\n([0-9]{3})\t- Prefix, Required Numeric 3 bytes.\n-\t- Required dash\n([0-9]{4})\t- Last 4 required bytes")]
+        [Identify(Phone_US_Full, @"^((\+1\s)?((\([0-9]{3}\)\s)|[0-9\-]{4}))([0-9]{3})-([0-9]{4})$", @"[^\+\(\)0-9\s\-]", "(\t- START GROUP 1\n(\\+1\\s)?\t- Optional US Country Code '+1 '\n(\t- START AREA CODE GROUP 1.1\n(\\([0-9]{3}\\)\\s)\t- Required '(' + NumericOnly 3 bytes + ')'\n|\t- OR\n[0-9\\-]{4}\t- Required Numeric Only with dash, a total of 4 bytes.\n)\t- END AREA CODE GROUP 1.1\n)\t- END GROUP 1\n([0-9]{3})\t- Prefix, Required Numeric 3 bytes.\n-\t- Required dash\n([0-9]{4})\t- Last 4 required bytes")]
         Phone_US_Full,
         [Identify(Phone_US_Mid, @"^((\([0-9]{3}\)\s)?|[0-9\-]{4})([0-9]{3}\-[0-9]{4})$", @"[^0-9\s-()]")]
         Phone_US_Mid,
@@ -28,36 +28,48 @@
         /// The Regex pattern is structured as follows:
         /// 
         /// language-regex
-        /// [a-zA-Z0-9]+([._%+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,63}
+        /// @"^[a-zA-Z\d](?:[a-zA-Z\d!#\$%&\+_\.-]{0,62}[a-zA-Z\d])?@(?:(?:[a-zA-Z\d](?:[a-zA-Z\d]|-(?!-)){0,61}[a-zA-Z\d])\.){1,3}[a-zA-Z]{2,24}$"
+        /// Local part length (1–64)                   ✅
+        /// Local starts & ends with alphanumeric      ✅
+        /// Special characters allowed mid-local       ✅
+        /// No consecutive .., no leading/trailing .   ✅
+        /// Domain part label length (1–63)            ✅
+        /// Domain labels no leading/trailing -        ✅
+        /// Repeats up to 3 subdomains                 ✅
+        /// TLD realistic length (2–24)                ✅
+        /// Fully anchored with ^...$                  ✅
+        /// Case-insensitive friendly                  ✅
         /// 
-        /// Breakdown of the Pattern:
-        /// [a-zA-Z0-9]+            : Matches one or more alphanumeric characters at the beginning of the email.
-        /// ([._%+-][a-zA-Z0-9]+)*  : Allows for optional sequences of special characters followed by alphanumeric characters.
-        /// @                       : The mandatory '@' symbol separating the local part from the domain.
-        /// [a-zA-Z0-9-]+           : Matches the domain name, which can include alphanumeric characters and hyphens.
-        /// (\.[a-zA-Z0-9-]+)*      : Allows for subdomains, which can be separated by periods.
-        /// \.[a-zA-Z]{2,63}        : Ensures that the email ends with a valid top-level domain, which can be between 2 to 63 characters long.
+        /// Accepted: 
+        /// alice.bob@example.com                      ✅
+        /// john+doe@sub.mail.org                      ✅
+        /// a1_b2@host-name.net                        ✅
         /// 
-        /// Example emails pattern:
-        /// "example@example.com", "user.name+tag+sorting@example.com", "user@subdomain.example.com", "invalid-email@.com", "invalid-email@domain..com", "@missingusername.com"
+        /// Regjected:
+        /// .bob@domain.com                            ❌
+        /// bob.@domain.com                            ❌
+        /// bob*@domain.com                            ❌
+        /// bob@-domain.com                            ❌
+        /// bob@domain-.com                            ❌
+        /// bob@a--b.com                               ❌
         /// </summary>
-        [Identify(Email, @"^[a-zA-Z0-9]+([\._\%\+\-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,63}$", @"[^a-zA-Z0-9@\._\%\+\-]")]
+        [Identify(Email, @"^[a-zA-Z\d](?:[a-zA-Z\d!#\$%&\+_\.-]{0,62}[a-zA-Z\d])?@(?:(?:[a-zA-Z\d](?:[a-zA-Z\d]|-(?!-)){0,61}[a-zA-Z\d])\.){1,3}[a-zA-Z]{2,24}$", @"[^a-zA-Z\d!#\$%&\+_\.-]")]
         Email,
         [Identify(Name, @"^[a-zA-Z\.\s]+$", @"[^a-zA-Z\.\s]")]
         Name,
-        [Identify(Address, @"^[0-9 ]?[a-zA-Z0-9 \.]$", @"[^a-zA-Z0-9 \.$]")]
+        [Identify(Address, @"^(\d|\d\s)?[a-zA-Z\d\s\.]$", @"[^a-zA-Z0-9\s\.]")]
         Address,
-        [Identify(City, @"^(([0-9]{0,5})? ?([a-zA-Z]{0,10}))?([a-zA-Z]{0,2}[\. ]{2})?[a-zA-Z]$", @"[^0-9a-zA-Z\. $]")]
+        [Identify(City, @"^(([0-9]{0,5})?\s?([a-zA-Z]{0,10}))?([a-zA-Z]{0,2}[\.\s]{2})?[a-zA-Z]$", @"[^0-9a-zA-Z\.\s]")]
         City,
-        [Identify(State_Full, "^[a-zA-Z ]{4,30}$", "[^a-zA-Z $]")]
+        [Identify(State_Full, @"^[a-zA-Z\s]{4,30}$", @"[^a-zA-Z\s]")]
         State_Full,
-        [Identify(State_Initials, "^[A-Z]{2}$", "[^A-Z$]")]
+        [Identify(State_Initials, "^[A-Z]{2}$", "[^A-Z]")]
         State_Initials,
-        [Identify(ZipCode_Hyphenated, @"^\d{5}|\d{5}-\d{4}$", "[^0-9-$]")]
+        [Identify(ZipCode_Hyphenated, @"^\d{5}|\d{5}-\d{4}$", @"[^\d\-]")]
         ZipCode_Hyphenated,
-        [Identify(ZipCode_Unhyphenated, @"^\d{9}$", "[^0-9$]")]
+        [Identify(ZipCode_Unhyphenated, @"^\d{9}$", @"[^\d]")]
         ZipCode_Unhyphenated,
-        [Identify(ZipCode_Short, @"^\d{5}$", "[^0-9$]")]
+        [Identify(ZipCode_Short, @"^\d{5}$", @"[^\d]")]
         ZipCode_Short,
     }
 }
